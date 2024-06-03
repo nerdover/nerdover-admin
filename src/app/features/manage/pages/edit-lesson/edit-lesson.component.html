@@ -1,47 +1,98 @@
 <div class="grid grid-cols-2 h-dvh">
-  <div class="p-8 space-y-4 overflow-y-auto">
-    <button
-      [routerLink]="['..']"
-      class="flex items-center gap-2 text-sm text-slate-500 hover:text-slate-700"
-    >
-      <Icon name="arrow_back" />กลับสู่หน้ารายการบทเรียน
-    </button>
-    <h1
-      class="text-4xl font-black focus:outline-0"
-      [contentEditable]="true"
-      placeholder="ชื่อบทเรียน"
-      [textContent]="currentLesson.title"
-      (input)="inputTitle($event)"
-    ></h1>
-    <div class="flex items-center gap-4 rounded-xl text-slate-500">
-      <button class="flex items-center rounded-lg text-blue-500">
-        <Icon name="photo_library" />
-      </button>
-      <button (click)="updatePanel.open()" class="flex items-center rounded-lg">
-        <Icon name="save" />
-      </button>
-      <button (click)="deletePanel.open()" class="flex items-center rounded-lg">
-        <Icon name="delete" />
-      </button>
+  <div class="overflow-y-auto">
+    <div class="relative h-36">
+      <div class="absolute top-0 left-0 w-full h-full bg-slate-500">
+        @if (currentLesson.cover) {
+        <img
+          [src]="'/upload/' + currentLesson.cover"
+          (error)="setDefaultImage($event)"
+          class="w-full h-36 object-cover brightness-50"
+        />
+        } @if (coverSrc()) {
+        <div class="h-36 relative">
+          <img
+            [src]="coverSrc()"
+            class="w-full h-full object-cover brightness-50"
+          />
+        </div>
+        } @else if (currentLesson.cover && !isImageDeleted) {
+        <div class="h-36 relative">
+          <img
+            [src]="'/upload/' + currentLesson.cover"
+            class="w-full h-full object-cover brightness-50"
+          />
+        </div>
+        }
+      </div>
+      <div class="absolute top-0 left-0 w-full p-8">
+        <button
+          [routerLink]="['..']"
+          class="flex items-center gap-2 mb-4 text-sm text-white"
+        >
+          <Icon name="arrow_back" />กลับสู่หน้ารายการบทเรียน
+        </button>
+        <h1
+          class="text-4xl font-black focus:outline-0 text-white"
+          [contentEditable]="true"
+          placeholder="ชื่อบทเรียน"
+          [textContent]="currentLesson.title"
+          (input)="inputTitle($event)"
+        ></h1>
+      </div>
     </div>
-    <textarea
-      [rows]="40"
-      class="w-full rounded-xl p-4"
-      placeholder="เริ่มต้นเขียนบทเรียน"
-      [(ngModel)]="currentLesson.content"
-    ></textarea>
+    <div class="p-8 space-y-8">
+      <div class="flex justify-between items-center gap-4">
+        <div class="flex items-center gap-4">
+          <button
+            (click)="coverInput.click()"
+            class="flex items-center rounded-lg"
+          >
+            <Icon name="add_a_photo" />
+          </button>
+          <div class="relative">
+            <button
+              (click)="photosPanel.toggle()"
+              class="flex items-center rounded-lg"
+              [ngClass]="{
+                'text-green-500': photosPanel.isOpened
+              }"
+            >
+              <Icon name="image_search" />
+            </button>
+            @if (photosPanel.isOpened) {
+            <div
+              class="absolute top-10 size-72 shadow-md bg-white rounded-xl"
+            ></div>
+            }
+          </div>
+          <button
+            (click)="updatePanel.open()"
+            class="flex items-center rounded-lg"
+          >
+            <Icon name="save" />
+          </button>
+        </div>
+        <div class="flex items-center gap-4">
+          <button
+            (click)="deletePanel.open()"
+            class="flex items-center rounded-lg text-red-500"
+          >
+            <Icon name="delete" />
+          </button>
+        </div>
+      </div>
+      <textarea
+        [rows]="40"
+        class="w-full outline-0 focus:outline-0 focus:ring-0"
+        placeholder="เริ่มต้นเขียนบทเรียน"
+        [(ngModel)]="currentLesson.content"
+      ></textarea>
+    </div>
   </div>
   <div class="p-4 overflow-y-auto bg-gray-200 relative">
     <div class="p-8 bg-white shadow-md min-h-full">
       <h1 class="text-4xl font-black mb-4">{{ currentLesson.title }}</h1>
-      <markdown
-        class="prose prose-slate"
-        commandLine
-        katex
-        [host]="'remotehost'"
-        [filterOutput]="'(out)'"
-        [data]="currentLesson.content"
-      >
+      <markdown class="prose prose-slate" katex [data]="currentLesson.content">
       </markdown>
     </div>
   </div>
@@ -61,3 +112,11 @@
   (close)="deletePanel.close()"
 ></DeleteLessonPanel>
 }
+
+<input
+  class="hidden"
+  type="file"
+  accept="image/*"
+  (input)="inputCoverImage($event)"
+  #coverInput
+/>
