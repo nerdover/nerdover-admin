@@ -1,0 +1,46 @@
+<div
+  class="absolute w-64 top-12 right-0 bg-white rounded-xl shadow-lg p-4 space-y-4"
+>
+  <div class="space-y-1">
+    <label class="text-sm">ID บทเรียน</label>
+    <input
+      type="text"
+      class="w-full px-4 py-2 rounded-lg bg-slate-50/80"
+      [(ngModel)]="lesson.id"
+    />
+  </div>
+  <div class="space-y-1">
+    <label class="text-sm">ชื่อบทเรียน</label>
+    <input
+      type="text"
+      class="w-full px-4 py-2 rounded-lg bg-slate-50/80"
+      [(ngModel)]="lesson.title"
+    />
+  </div>
+  <div class="space-y-1">
+    <label class="text-sm">หมวดหมู่</label>
+    <select
+      [(ngModel)]="lesson.categoryId"
+      class="w-full px-4 py-2 rounded-lg border"
+    >
+      <option value="" selected disabled>เลือกหมวดหมู่</option>
+      @for (category of availableCategories(); track $index) {
+      <option [value]="category.id">{{ category.title }}</option>
+      }
+    </select>
+  </div>
+  <div class="flex justify-evenly items-center">
+    <button
+      (click)="create()"
+      class="flex items-center p-2 rounded-full text-green-500 hover:bg-green-50"
+    >
+      <Icon name="done" />
+    </button>
+    <button
+      (click)="cancel()"
+      class="flex items-center p-2 rounded-full text-red-500 hover:bg-red-50"
+    >
+      <Icon name="close" />
+    </button>
+  </div>
+</div>

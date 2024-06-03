@@ -1,0 +1,20 @@
+<div class="h-dvh p-4 space-y-8 overflow-y-auto sticky top-0 bg-slate-50">
+  <div class="flex justify-center items-center gap-2">
+    <img class="size-8" src="images/logo.svg" />
+  </div>
+  <nav>
+    <ul class="space-y-2">
+      @for (item of menu; track $index) {
+      <li
+        role="button"
+        [routerLink]="item.link"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: item.exact }"
+        class="p-2 rounded-xl hover:bg-slate-100 font-semibold"
+      >
+        <Icon [name]="item.icon" />
+      </li>
+      }
+    </ul>
+  </nav>
+</div>

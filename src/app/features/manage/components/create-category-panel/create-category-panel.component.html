@@ -1,0 +1,62 @@
+<div
+  class="absolute w-64 top-12 right-0 bg-white rounded-xl shadow-lg p-4 space-y-4"
+>
+  <div class="space-y-1">
+    <label class="text-sm">ID หมวดหมู่</label>
+    <input
+      type="text"
+      class="w-full px-4 py-2 rounded-lg bg-slate-50"
+      [(ngModel)]="category.id"
+    />
+  </div>
+  <div class="space-y-1">
+    <label class="text-sm">ชื่อหมวดหมู่</label>
+    <input
+      type="text"
+      class="w-full px-4 py-2 rounded-lg bg-slate-50"
+      [(ngModel)]="category.title"
+    />
+  </div>
+  <div class="space-y-1">
+    <label class="text-sm">ภาพปก</label>
+    <input
+      class="hidden"
+      type="file"
+      accept="image/*"
+      (input)="inputCoverImage($event)"
+      #coverInput
+    />
+    @if (coverSrc()) {
+    <div class="h-16 rounded-lg relative">
+      <img [src]="coverSrc()" class="w-full h-full object-cover rounded-lg" />
+      <button
+        (click)="clearCoverFile()"
+        class="absolute right-2 bottom-2 flex items-center text-red-500 hover:text-red-700"
+      >
+        <Icon name="delete" />
+      </button>
+    </div>
+    } @else {
+    <button
+      (click)="coverInput.click()"
+      class="w-full h-16 rounded-lg flex justify-center items-center bg-slate-50 text-slate-500 hover:bg-slate-100"
+    >
+      <Icon name="add" />
+    </button>
+    }
+  </div>
+  <div class="flex justify-evenly items-center">
+    <button
+      (click)="create()"
+      class="flex items-center p-2 rounded-full text-green-500 hover:bg-green-50"
+    >
+      <Icon name="done" />
+    </button>
+    <button
+      (click)="cancel()"
+      class="flex items-center p-2 rounded-full text-red-500 hover:bg-red-50"
+    >
+      <Icon name="close" />
+    </button>
+  </div>
+</div>

@@ -1,0 +1,63 @@
+<div class="grid grid-cols-2 h-dvh">
+  <div class="p-8 space-y-4 overflow-y-auto">
+    <button
+      [routerLink]="['..']"
+      class="flex items-center gap-2 text-sm text-slate-500 hover:text-slate-700"
+    >
+      <Icon name="arrow_back" />กลับสู่หน้ารายการบทเรียน
+    </button>
+    <h1
+      class="text-4xl font-black focus:outline-0"
+      [contentEditable]="true"
+      placeholder="ชื่อบทเรียน"
+      [textContent]="currentLesson.title"
+      (input)="inputTitle($event)"
+    ></h1>
+    <div class="flex items-center gap-4 rounded-xl text-slate-500">
+      <button class="flex items-center rounded-lg text-blue-500">
+        <Icon name="photo_library" />
+      </button>
+      <button (click)="updatePanel.open()" class="flex items-center rounded-lg">
+        <Icon name="save" />
+      </button>
+      <button (click)="deletePanel.open()" class="flex items-center rounded-lg">
+        <Icon name="delete" />
+      </button>
+    </div>
+    <textarea
+      [rows]="40"
+      class="w-full rounded-xl p-4"
+      placeholder="เริ่มต้นเขียนบทเรียน"
+      [(ngModel)]="currentLesson.content"
+    ></textarea>
+  </div>
+  <div class="p-4 overflow-y-auto bg-gray-200 relative">
+    <div class="p-8 bg-white shadow-md min-h-full">
+      <h1 class="text-4xl font-black mb-4">{{ currentLesson.title }}</h1>
+      <markdown
+        class="prose prose-slate"
+        commandLine
+        katex
+        [host]="'remotehost'"
+        [filterOutput]="'(out)'"
+        [data]="currentLesson.content"
+      >
+      </markdown>
+    </div>
+  </div>
+</div>
+
+@if (updatePanel.isOpened) {
+<UpdateLessonPanel
+  [categoryId]="categoryId()"
+  [lessonId]="lessonId()"
+  [lesson]="currentLesson"
+  (close)="updatePanel.close()"
+></UpdateLessonPanel>
+} @if (deletePanel.isOpened) {
+<DeleteLessonPanel
+  [categoryId]="categoryId()"
+  [lessonId]="lessonId()"
+  (close)="deletePanel.close()"
+></DeleteLessonPanel>
+}

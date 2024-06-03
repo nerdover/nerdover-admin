@@ -1,0 +1,65 @@
+<div class="p-8 space-y-8">
+  <div class="flex justify-between items-center">
+    <h1 class="text-4xl font-bold">จัดการบทเรียน</h1>
+    <div>
+      <div class="relative">
+        <button
+          (click)="createPanel.open()"
+          class="flex items-center gap-2 px-4 py-2 rounded-lg border border-slate-900 font-semibold"
+        >
+          <Icon name="add" /> เพิ่มหมวดหมู่
+        </button>
+        @if(createPanel.isOpened) {
+        <CreateCategoryPanel
+          (created)="ls.loadLessonMap()"
+          (close)="createPanel.close()"
+        />
+        }
+      </div>
+    </div>
+  </div>
+  @if (ls.categories()) {
+  <div class="overflow-x-auto">
+    <table class="w-full">
+      <thead>
+        <tr class="*:text-start *:p-2">
+          <th></th>
+          <th>หมวดหมู่</th>
+          <th>สร้างเมื่อ</th>
+          <th>อัปเดตเมื่อ</th>
+          <th>ID อ้างอิง</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (category of ls.categories(); track $index) {
+        <tr
+          role="button"
+          class="*:p-2 hover:bg-slate-50 transition-all"
+          [routerLink]="[category.id, 'lessons']"
+        >
+          <td class="flex justify-center items-center">
+            <Icon name="folder" />
+          </td>
+          <td>{{ category.title }}</td>
+          <td>{{ category.createdAt || "" | date }}</td>
+          <td>{{ category.updatedAt || "" | date }}</td>
+          <td>{{ category.id }}</td>
+        </tr>
+        } @empty {
+        <tr>
+          <td [colSpan]="5" class="text-center text-slate-500 p-2">ว่าง</td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+  } @else if (ls.categories() === null) {
+  <div class="flex justify-center items-center">
+    <span class="text-slate-500">ไม่พบข้อมูล</span>
+  </div>
+  } @else {
+  <div class="flex justify-center items-center">
+    <span class="text-slate-500">กำลังโหลดข้อมูล</span>
+  </div>
+  }
+</div>

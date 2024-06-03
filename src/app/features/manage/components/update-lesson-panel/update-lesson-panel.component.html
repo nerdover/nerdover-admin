@@ -1,0 +1,21 @@
+<div
+  class="fixed top-0 left-0 w-full h-dvh bg-black/75 flex justify-center items-center"
+>
+  <div class="bg-white p-4 rounded-xl w-64 space-y-4">
+    <h4 class="font-bold">ต้องการที่จะอัปเดตหรือไม่</h4>
+    <div class="flex justify-end gap-4">
+      <button
+        (click)="update()"
+        class="px-4 py-2 rounded-lg font-semibold text-yellow-700 hover:bg-yellow-50"
+      >
+        อัปเดต
+      </button>
+      <button
+        (click)="cancel()"
+        class="px-4 py-2 rounded-lg font-semibold hover:bg-slate-50"
+      >
+        ยกเลิก
+      </button>
+    </div>
+  </div>
+</div>

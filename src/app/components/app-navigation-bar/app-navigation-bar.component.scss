@@ -1,0 +1,7 @@
+.active {
+  @apply bg-slate-700 text-slate-50;
+
+  &:hover {
+    @apply bg-slate-700;
+  }
+}
