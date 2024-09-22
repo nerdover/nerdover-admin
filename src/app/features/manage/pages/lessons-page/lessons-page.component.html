@@ -1,0 +1,81 @@
+<div class="flex items-center justify-between gap-4 text-sm">
+  <p class="px-4 font-semibold">{{ currentCategory()?.title }}</p>
+  <div class="flex items-center gap-4">
+    <button
+      (click)="addLessonPanel.open()"
+      class="px-4 py-2 rounded-lg hover:bg-stone-100 border border-stone-100 flex gap-2 items-center"
+    >
+      <i class="ms">note_add</i> เพิ่มบทเรียน
+    </button>
+    <button
+      (click)="addSeriesPanel.open()"
+      class="px-4 py-2 rounded-lg hover:bg-stone-100 border border-stone-100 flex gap-2 items-center"
+    >
+      <i class="ms">note_stack_add</i> เพิ่มชุดบทเรียน
+    </button>
+  </div>
+</div>
+
+<hr class="my-2" />
+
+<FileButton [to]="['..']" label=".." [entireLinkable]="true" />
+
+@if (data(); as d) { @for (l of data(); track $index) {
+<FileButton [to]="[]" [label]="l.title" icon="description">
+  <p class="text-xs text-stone-400 flex items-center gap-2">
+    <i class="ms">more_time</i>{{ "12-12-2001" }}
+  </p>
+  <p class="text-xs text-stone-400 flex items-center gap-2">
+    <i class="ms">update</i> {{ "12-12-2001" }}
+  </p>
+  <div class="flex items-center gap-4">
+    <button
+      (click)="openDeleteLessonPanel(l.id)"
+      class="flex items-center p-2 rounded-lg hover:bg-stone-200 hover:text-red-700 btn4xc lg:invisible lg:opacity-0 group-hover:visible group-hover:opacity-100"
+    >
+      <i class="ms exclude">delete</i>
+    </button>
+  </div>
+</FileButton>
+} } @if (data1()) { @for (s of data1(); track $index) {
+<FileButton [to]="[s.id]" [label]="s.title" icon="note_stack">
+  <p class="text-xs text-stone-400 flex items-center gap-2">
+    <i class="ms">more_time</i>{{ "12-12-2001" }}
+  </p>
+  <p class="text-xs text-stone-400 flex items-center gap-2">
+    <i class="ms">update</i> {{ "12-12-2001" }}
+  </p>
+  <div class="flex items-center gap-4">
+    <button
+      (click)="openDeleteSeriesPanel(s.id)"
+      class="flex items-center p-2 rounded-lg hover:bg-stone-200 hover:text-red-700 btn4xc lg:invisible lg:opacity-0 group-hover:visible group-hover:opacity-100"
+    >
+      <i class="ms exclude">delete</i>
+    </button>
+  </div>
+</FileButton>
+} } @if (addLessonPanel.isOpened) {
+<AddLessonPanel @fade (closed)="addLessonPanel.close()" />
+} @if (addSeriesPanel.isOpened) {
+<AddSeriesPanel @fade (closed)="addSeriesPanel.close()" />
+} @if (deleteLessonPanel.isOpened && currentDeleteLessonId()) {
+<DeletePanel
+  @fade
+  deleteType="lesson"
+  [categoryId]="categoryId()"
+  [lessonId]="currentDeleteLessonId()"
+  (closed)="closeDeleteLessonPanel()"
+  titleMsg="ต้องการลบบทเรียนหรือไม่"
+  descMsg="บทเรียนที่เลือกจะถูกลบ"
+/>
+} @if (deleteSeriesPanel.isOpened && currentDeleteSeriesId()) {
+<DeletePanel
+  @fade
+  deleteType="series"
+  [categoryId]="categoryId()"
+  [seriesId]="currentDeleteLessonId()"
+  (closed)="closeDeleteSeriesPanel()"
+  titleMsg="ต้องการลบชุดบทเรียนหรือไม่"
+  descMsg="ชุดบทเรียนที่เลือกจะถูกลบ เนื้อหาในชุดบทเรียนนี้ทั้งหมดจะหายไป"
+/>
+}

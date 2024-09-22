@@ -1,0 +1,41 @@
+<div class="flex items-center justify-between gap-4 text-sm">
+  <p class="px-4 font-semibold">หมวดหมู่ทั้งหมด</p>
+  <button
+    (click)="addCategoryPanel.open()"
+    class="px-4 py-2 rounded-lg hover:bg-stone-100 border border-stone-100 flex gap-2 items-center"
+  >
+    <i class="ms">create_new_folder</i> เพิ่มหมวดหมู่
+  </button>
+</div>
+
+<hr class="my-2" />
+
+@for (c of data; track $index) {
+<FileButton [to]="[c.id]" [label]="c.title">
+  <p class="text-xs text-stone-400 flex items-center gap-2">
+    <i class="ms">more_time</i>{{ "12-12-2001" }}
+  </p>
+  <p class="text-xs text-stone-400 flex items-center gap-2">
+    <i class="ms">update</i> {{ "12-12-2001" }}
+  </p>
+  <div class="flex items-center gap-4">
+    <button
+      (click)="openDeletePanel(c.id)"
+      class="flex items-center p-2 rounded-lg hover:bg-stone-200 hover:text-red-700 btn4xc lg:invisible lg:opacity-0 group-hover:visible group-hover:opacity-100"
+    >
+      <i class="ms exclude">delete</i>
+    </button>
+  </div>
+</FileButton>
+} @if (addCategoryPanel.isOpened) {
+<AddCategoryPanel @fade (closed)="addCategoryPanel.close()" />
+} @if (deletePanel.isOpened && currentDeleteCategoryId()) {
+<DeletePanel
+  @fade
+  deleteType="category"
+  [categoryId]="currentDeleteCategoryId()"
+  (closed)="closeDeletePanel()"
+  titleMsg="ต้องการลบหมวดหมู่หรือไม่"
+  descMsg="หมวดหมู่ที่เลือกจะถูกลบ บทเรียนและชุดบทเรียนทั้งหมดในหมวดหมู่นี้จะหายไป"
+/>
+}

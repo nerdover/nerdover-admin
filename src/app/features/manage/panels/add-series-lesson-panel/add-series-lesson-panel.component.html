@@ -1,0 +1,38 @@
+<Overlay>
+  <div class="p-8 bg-white rounded-xl z-[1] max-w-sm w-full space-y-4 mx-auto">
+    <p class="text-xl font-bold">เพิ่มเนื้อหาชุดบทเรียน</p>
+    <hr />
+    <div class="flex flex-col gap-4">
+      <!-- <div class="flex flex-col gap-1">
+        <label class="text-xs font-semibold">รหัสเนื้อหาชุดบทเรียน</label>
+        <input
+          type="text"
+          placeholder="new-series-lesson-id"
+          class="px-4 py-2 rounded-lg border border-stone-100 focus:ring-4 focus:ring-stone-300 focus:outline-0 placeholder:text-stone-300 transition-all"
+        />
+      </div> -->
+      <div class="flex flex-col gap-1">
+        <label class="text-xs font-semibold">ชื่อเนื้อหาชุดบทเรียน</label>
+        <input
+          type="text"
+          placeholder="เนื้อหาชุดบทเรียนใหม่"
+          class="px-4 py-2 rounded-lg border border-stone-100 focus:ring-4 focus:ring-stone-300 focus:outline-0 placeholder:text-stone-300 transition-all"
+        />
+      </div>
+    </div>
+    <hr />
+    <div class="flex justify-end items-center gap-4">
+      <button
+        (click)="close()"
+        class="px-4 py-2 rounded-lg active:bg-stone-100"
+      >
+        ยกเลิก
+      </button>
+      <button
+        class="px-4 py-2 rounded-lg bg-green-700 text-white active:bg-green-900"
+      >
+        สร้าง
+      </button>
+    </div>
+  </div>
+</Overlay>

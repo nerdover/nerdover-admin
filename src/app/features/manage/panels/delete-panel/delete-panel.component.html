@@ -1,0 +1,27 @@
+<Overlay>
+  <div class="h-full flex justify-center items-center">
+    <div
+      class="p-8 bg-white rounded-xl z-[1] max-w-sm w-full space-y-4 mx-auto"
+    >
+      <p class="text-xl font-bold">{{ titleMsg }}</p>
+      <hr />
+      <div class="flex flex-col gap-4">
+        <p>{{ descMsg }}</p>
+      </div>
+      <hr />
+      <div class="flex justify-end items-center gap-4">
+        <button
+          (click)="close()"
+          class="px-4 py-2 rounded-lg active:bg-stone-100"
+        >
+          ยกเลิก
+        </button>
+        <button
+          class="px-4 py-2 rounded-lg bg-red-700 text-white active:bg-red-900"
+        >
+          ลบ
+        </button>
+      </div>
+    </div>
+  </div>
+</Overlay>
