@@ -1,0 +1,179 @@
+<Overlay>
+  <div class="p-8 bg-white rounded-xl z-[1] max-w-sm w-full space-y-4 mx-auto">
+    @if (editType === 'category') {
+    <p class="text-xl font-bold">แก้ไขหมวดหมู่</p>
+    <hr />
+    <div class="flex flex-col gap-4">
+      <div class="flex flex-col gap-1">
+        <label class="text-xs font-semibold">รหัสหมวดหมู่</label>
+        <input
+          type="text"
+          [(ngModel)]="category!.id"
+          readonly
+          disabled
+          class="px-4 py-2 rounded-lg border bg-stone-100 text-stone-300"
+        />
+      </div>
+      <div class="flex flex-col gap-1">
+        <label class="text-xs font-semibold">ชื่อหมวดหมู่</label>
+        <input
+          type="text"
+          placeholder="หมวดหมู่ใหม่"
+          [(ngModel)]="newCategoryTitle"
+          class="px-4 py-2 rounded-lg border border-stone-100 focus:ring-4 focus:ring-stone-300 focus:outline-0 placeholder:text-stone-300 transition-all"
+        />
+      </div>
+      <div class="flex flex-col gap-1">
+        <label class="text-xs font-semibold">ภาพปกหมวดหมู่</label>
+        <div
+          role="button"
+          (click)="coverInput.click()"
+          class="h-36 bg-stone-50 rounded-lg border-2 border-stone-100 active:bg-stone-100 border-dashed flex justify-center items-center"
+        >
+          <i class="ms">add_photo_alternate</i>
+        </div>
+        <input #coverInput type="file" class="hidden" />
+      </div>
+    </div>
+    } @else if (editType === 'lesson') {
+    <p class="text-xl font-bold">แก้ไขบทเรียน</p>
+    <hr />
+    <div class="flex flex-col gap-4">
+      <div class="flex flex-col gap-1">
+        <label class="text-xs font-semibold">รหัสบทเรียน</label>
+        <input
+          type="text"
+          [(ngModel)]="lesson!.id"
+          readonly
+          disabled
+          class="px-4 py-2 rounded-lg border bg-stone-100 text-stone-300"
+        />
+      </div>
+      <div class="flex flex-col gap-1">
+        <label class="text-xs font-semibold">ชื่อบทเรียน</label>
+        <input
+          type="text"
+          placeholder="บทเรียนใหม่"
+          [(ngModel)]="newLessonTitle"
+          class="px-4 py-2 rounded-lg border border-stone-100 focus:ring-4 focus:ring-stone-300 focus:outline-0 placeholder:text-stone-300 transition-all"
+        />
+      </div>
+      <div class="flex flex-col gap-1">
+        <label class="text-xs font-semibold">ภาพปกบทเรียน</label>
+        <div
+          role="button"
+          (click)="coverInput.click()"
+          class="h-36 bg-stone-50 rounded-lg border-2 border-stone-100 active:bg-stone-100 border-dashed flex justify-center items-center"
+        >
+          <i class="ms">add_photo_alternate</i>
+        </div>
+        <input #coverInput type="file" class="hidden" />
+      </div>
+    </div>
+    } @else if (editType === 'series') {
+    <p class="text-xl font-bold">แก้ไขชุดบทเรียน</p>
+    <hr />
+    <div class="flex flex-col gap-4">
+      <div class="flex flex-col gap-1">
+        <label class="text-xs font-semibold">รหัสชุดบทเรียน</label>
+        <input
+          type="text"
+          [(ngModel)]="series!.id"
+          readonly
+          disabled
+          class="px-4 py-2 rounded-lg border bg-stone-100 text-stone-300"
+        />
+      </div>
+      <div class="flex flex-col gap-1">
+        <label class="text-xs font-semibold">ชื่อชุดบทเรียน</label>
+        <input
+          type="text"
+          placeholder="ชุดบทเรียนใหม่"
+          [(ngModel)]="newSeriesTitle"
+          class="px-4 py-2 rounded-lg border border-stone-100 focus:ring-4 focus:ring-stone-300 focus:outline-0 placeholder:text-stone-300 transition-all"
+        />
+      </div>
+      <div class="flex flex-col gap-1">
+        <label class="text-xs font-semibold">ภาพปกชุดบทเรียน</label>
+        <div
+          role="button"
+          (click)="coverInput.click()"
+          class="h-36 bg-stone-50 rounded-lg border-2 border-stone-100 active:bg-stone-100 border-dashed flex justify-center items-center"
+        >
+          <i class="ms">add_photo_alternate</i>
+        </div>
+        <input #coverInput type="file" class="hidden" />
+      </div>
+    </div>
+    } @else {
+    <p class="text-xl font-bold">แก้ไขเนื้อหาชุดบทเรียน</p>
+    <hr />
+    <div class="flex flex-col gap-4">
+      <div class="flex flex-col gap-1">
+        <label class="text-xs font-semibold">รหัสเนื้อหาชุดบทเรียน</label>
+        <input
+          type="text"
+          [(ngModel)]="seriesLesson!.id"
+          readonly
+          disabled
+          class="px-4 py-2 rounded-lg border bg-stone-100 text-stone-300"
+        />
+      </div>
+      <div class="flex flex-col gap-1">
+        <label class="text-xs font-semibold">ชื่อเนื้อหาชุดบทเรียน</label>
+        <input
+          type="text"
+          placeholder="เนื้อหาชุดบทเรียนใหม่"
+          [(ngModel)]="newSeriesLessonTitle"
+          class="px-4 py-2 rounded-lg border border-stone-100 focus:ring-4 focus:ring-stone-300 focus:outline-0 placeholder:text-stone-300 transition-all"
+        />
+      </div>
+      <div class="flex flex-col gap-1">
+        <label class="text-xs font-semibold">ภาพปกเนื้อหาชุดบทเรียน</label>
+        <div
+          role="button"
+          (click)="coverInput.click()"
+          class="h-36 bg-stone-50 rounded-lg border-2 border-stone-100 active:bg-stone-100 border-dashed flex justify-center items-center"
+        >
+          <i class="ms">add_photo_alternate</i>
+        </div>
+        <input #coverInput type="file" class="hidden" />
+      </div>
+    </div>
+    }
+    <hr />
+    <div class="flex justify-end items-center gap-4">
+      <button
+        (click)="close()"
+        class="px-4 py-2 rounded-lg active:bg-stone-100"
+      >
+        ยกเลิก
+      </button>
+      <button
+        (click)="editFactory()"
+        [disabled]="
+          editType === 'category'
+            ? !newCategoryTitle ||
+              !newCategoryTitle.length ||
+              newCategoryTitle === category?.title
+            : editType === 'lesson'
+            ? !newLessonTitle ||
+              !newLessonTitle.length ||
+              newLessonTitle === lesson?.title
+            : editType === 'series'
+            ? !newSeriesTitle ||
+              !newSeriesTitle.length ||
+              newSeriesTitle === series?.title
+            : editType === 'serieslesson'
+            ? !newSeriesLessonTitle ||
+              !newSeriesLessonTitle.length ||
+              newSeriesLessonTitle === seriesLesson?.title
+            : true
+        "
+        class="px-4 py-2 rounded-lg bg-yellow-700 text-white active:bg-yellow-900 disabled:bg-stone-200"
+      >
+        อัปเดต
+      </button>
+    </div>
+  </div>
+</Overlay>

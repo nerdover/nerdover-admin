@@ -1,13 +1,14 @@
 import { Component, computed, input, signal } from '@angular/core';
 import { FileButtonComponent } from '../../components/file-button/file-button.component';
 import {
+  getAllCategoryIdentity,
   getAllSeriesIdentity,
   getAllSeriesLessonIdentity,
 } from '../../../../core/mock/mock';
 import { Switch } from '../../../../shared/utils/switch';
 import { AddSeriesLessonPanelComponent } from '../../panels/add-series-lesson-panel/add-series-lesson-panel.component';
 import { fade } from '../../../../shared/animations/fade';
-import { DeletePanelComponent } from '../../panels/delete-panel/delete-panel.component';
+import { ManageGroupComponent } from '../../components/manage-group/manage-group.component';
 
 @Component({
   selector: 'app-series-page',
@@ -15,7 +16,7 @@ import { DeletePanelComponent } from '../../panels/delete-panel/delete-panel.com
   imports: [
     FileButtonComponent,
     AddSeriesLessonPanelComponent,
-    DeletePanelComponent,
+    ManageGroupComponent,
   ],
   templateUrl: './series-page.component.html',
   styleUrl: './series-page.component.scss',
@@ -24,6 +25,10 @@ import { DeletePanelComponent } from '../../panels/delete-panel/delete-panel.com
 export class SeriesPageComponent {
   categoryId = input('');
   seriesId = input('');
+
+  currentCategory = computed(() =>
+    getAllCategoryIdentity().find((c) => c.id === this.categoryId())
+  );
 
   currentSeries = computed(() =>
     getAllSeriesIdentity(this.categoryId())?.find(
@@ -34,18 +39,5 @@ export class SeriesPageComponent {
     getAllSeriesLessonIdentity(this.categoryId(), this.seriesId())
   );
 
-  currentDeleteSeriesLessonId = signal<string | undefined>(undefined);
-
   addSeriesLessonPanel = new Switch();
-  deletePanel = new Switch();
-
-  openDeletePanel(seriesLessonId: string) {
-    this.currentDeleteSeriesLessonId.set(seriesLessonId);
-    this.deletePanel.open();
-  }
-
-  closeDeletePanel() {
-    this.currentDeleteSeriesLessonId.set(undefined);
-    this.deletePanel.close();
-  }
 }

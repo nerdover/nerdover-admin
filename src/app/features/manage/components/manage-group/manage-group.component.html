@@ -1,0 +1,36 @@
+<div class="flex items-center gap-4">
+  <button
+    (click)="editPanel.open()"
+    class="flex items-center p-2 rounded-lg hover:bg-stone-200 hover:text-yellow-700 btn4xc lg:invisible lg:opacity-0 group-hover:visible group-hover:opacity-100"
+  >
+    <i class="ms exclude">edit</i>
+  </button>
+  <button
+    (click)="deletePanel.open()"
+    class="flex items-center p-2 rounded-lg hover:bg-stone-200 hover:text-red-700 btn4xc lg:invisible lg:opacity-0 group-hover:visible group-hover:opacity-100"
+  >
+    <i class="ms exclude">delete</i>
+  </button>
+</div>
+
+@if (editPanel.isOpened) {
+<EditPanel
+  @fade
+  [editType]="manageType"
+  [category]="category"
+  [lesson]="lesson"
+  [series]="series"
+  [seriesLesson]="seriesLesson"
+  (closed)="editPanel.close()"
+/>
+} @if (deletePanel.isOpened) {
+<DeletePanel
+  @fade
+  [deleteType]="manageType"
+  [categoryId]="category?.id"
+  [lessonId]="lesson?.id"
+  [seriesId]="series?.id"
+  [seriesLessonId]="seriesLesson?.id"
+  (closed)="deletePanel.close()"
+/>
+}

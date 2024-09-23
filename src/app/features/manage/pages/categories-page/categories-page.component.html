@@ -18,24 +18,8 @@
   <p class="text-xs text-stone-400 flex items-center gap-2">
     <i class="ms">update</i> {{ "12-12-2001" }}
   </p>
-  <div class="flex items-center gap-4">
-    <button
-      (click)="openDeletePanel(c.id)"
-      class="flex items-center p-2 rounded-lg hover:bg-stone-200 hover:text-red-700 btn4xc lg:invisible lg:opacity-0 group-hover:visible group-hover:opacity-100"
-    >
-      <i class="ms exclude">delete</i>
-    </button>
-  </div>
+  <ManageGroup manageType="category" [category]="c" />
 </FileButton>
 } @if (addCategoryPanel.isOpened) {
 <AddCategoryPanel @fade (closed)="addCategoryPanel.close()" />
-} @if (deletePanel.isOpened && currentDeleteCategoryId()) {
-<DeletePanel
-  @fade
-  deleteType="category"
-  [categoryId]="currentDeleteCategoryId()"
-  (closed)="closeDeletePanel()"
-  titleMsg="ต้องการลบหมวดหมู่หรือไม่"
-  descMsg="หมวดหมู่ที่เลือกจะถูกลบ บทเรียนและชุดบทเรียนทั้งหมดในหมวดหมู่นี้จะหายไป"
-/>
 }
