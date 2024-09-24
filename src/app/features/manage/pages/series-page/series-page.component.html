@@ -18,7 +18,11 @@
 />
 
 @if (data(); as d) { @for (sl of d; track $index) {
-<FileButton [to]="[]" [label]="sl.title" icon="sticky_note_2">
+<FileButton
+  [to]="['/', 'edit', 'series-lesson', categoryId(), seriesId(), sl.id]"
+  [label]="sl.title"
+  icon="sticky_note_2"
+>
   <p class="text-xs text-stone-400 flex items-center gap-2">
     <i class="ms">more_time</i>{{ "12-12-2001" }}
   </p>

@@ -1,0 +1,15 @@
+<div class="flex gap-4 p-4 h-dvh relative">
+  <div class="min-h-full p-1 grow bg-white rounded-xl shadow relative">
+    <div class="h-full overflow-auto">
+      <router-outlet></router-outlet>
+      <div class="h-dvh"></div>
+    </div>
+  </div>
+  <div class="bg-white h-full w-64 rounded-xl shadow p-4">
+    <ul class="text-xs">
+      @for (block of es.blocks(); track $index) {
+      <li>{{ block.instance.id }}</li>
+      }
+    </ul>
+  </div>
+</div>

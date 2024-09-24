@@ -1,0 +1,21 @@
+<DraggableTool>
+  <ng-container ngProjectAs="menu">
+    <ToggleIconButton
+      ngProjectAs="menu"
+      (click)="editorPanel.toggle()"
+      [of]="!editorPanel.isOpened"
+      trueIcon="edit"
+      falseIcon="edit_off"
+    />
+  </ng-container>
+  @if (editorPanel.isOpened) {
+  <div class="p-2 bg-stone-50 rounded-lg w-64 shrink-0">
+    <textarea [(ngModel)]="data.text"></textarea>
+  </div>
+  }
+  <markdown
+    [data]="data.text"
+    [katex]="config.katex"
+    class="grow overflow-x-auto prose prose-stone p-2"
+  ></markdown>
+</DraggableTool>

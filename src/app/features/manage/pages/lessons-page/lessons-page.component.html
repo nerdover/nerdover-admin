@@ -21,7 +21,11 @@
 <FileButton [to]="['..']" label=".." [entireLinkable]="true" />
 
 @if (data(); as d) { @for (l of data(); track $index) {
-<FileButton [to]="[]" [label]="l.title" icon="description">
+<FileButton
+  [to]="['/', 'edit', 'lesson', categoryId(), l.id]"
+  [label]="l.title"
+  icon="description"
+>
   <p class="text-xs text-stone-400 flex items-center gap-2">
     <i class="ms">more_time</i>{{ "12-12-2001" }}
   </p>

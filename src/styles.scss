@@ -60,3 +60,33 @@ i.ms {
     font-variation-settings: "FILL" 1, "wght" 400, "GRAD" 0, "opsz" 48;
   }
 }
+
+
+.cdk-drag-placeholder {
+  opacity: 0;
+}
+
+.cdk-drag-preview {
+  @apply shadow-md bg-white rounded-xl
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.cdk-list.cdk-drop-list-dragging .cdk-item:not(.cdk-drag-placeholder) {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-stone-500 rounded-full;
+}
