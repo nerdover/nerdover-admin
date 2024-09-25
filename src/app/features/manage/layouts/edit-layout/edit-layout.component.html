@@ -2,13 +2,21 @@
   <div class="min-h-full p-1 grow bg-white rounded-xl shadow relative">
     <div class="h-full overflow-auto">
       <router-outlet></router-outlet>
-      <div class="h-dvh"></div>
     </div>
   </div>
   <div class="bg-white h-full w-64 rounded-xl shadow p-4">
     <ul class="text-xs">
       @for (block of es.blocks(); track $index) {
-      <li>{{ block.instance.id }}</li>
+      <li
+        class="flex gap-1 justify-between items-center px-2 py-1 hover:bg-stone-50 rounded-lg"
+      >
+        <span> {{ $index }}-{{ block.instance.id }} </span>
+        <button (click)="remove($index)"
+          class="p-1 rounded-md flex items-center hover:bg-red-50 hover:text-red-700"
+        >
+          <i class="ms small">delete</i>
+        </button>
+      </li>
       }
     </ul>
   </div>

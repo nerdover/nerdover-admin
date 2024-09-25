@@ -1,5 +1,5 @@
 <div
-  class="flex items-center gap-2 p-2 rounded-lg bg-stone-50/50 backdrop-blur sticky top-0"
+  class="flex items-center gap-2 p-2 rounded-lg bg-stone-50/50 backdrop-blur sticky top-0 shadow-sm"
 >
   @for (tool of ts.tools; track $index) {
   <button
@@ -10,9 +10,6 @@
   </button>
   }
 </div>
-@for (item of es.blocks(); track $index) {
-<button (click)="remove($index)" class="p-2 border">{{ $index }}</button>
-}
 
 <div cdkDropList (cdkDropListDropped)="drop($event)" class="cdk-list">
   <ng-container #container></ng-container>

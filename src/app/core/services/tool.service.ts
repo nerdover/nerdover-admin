@@ -57,8 +57,8 @@ export class ToolService {
       case 'paragraph':
         return ParagraphToolComponent;
 
-      // case 'image':
-      //   return ImageToolComponent;
+      case 'image':
+        return ImageToolComponent;
 
       // case 'codeblock':
       //   return CodeblockToolComponent;
@@ -69,6 +69,6 @@ export class ToolService {
   }
 
   genGUID() {
-    return uuid().replace(/-/g, '');
+    return btoa(uuid().replace(/-/g, '').substring(0,8)).slice(0,-1);
   }
 }

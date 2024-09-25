@@ -33,15 +33,6 @@ export class EditorComponent {
     }
   }
 
-  remove(index: number) {
-    if (index < 0 || index >= this.es.blocks().length) {
-      return;
-    }
-
-    this.ts.destroy(this.es.blocks()[index]);
-    this.es.removeBlock(index);
-  }
-
   drop(event: CdkDragDrop<ComponentRef<ITool<Data, Config>>>) {
     if (event.currentIndex === event.previousIndex || !this.container()) {
       return;

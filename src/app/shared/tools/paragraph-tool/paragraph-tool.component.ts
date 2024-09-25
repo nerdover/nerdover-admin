@@ -26,7 +26,7 @@ export class ParagraphToolComponent implements ParagraphTool {
   id!: string;
 
   data: ParagraphData = {
-    text: '$A+B$',
+    text: '',
   };
 
   config: ParagraphConfig = {
