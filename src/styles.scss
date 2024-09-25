@@ -34,7 +34,7 @@ div.fake-btn {
       font-variation-settings: "FILL" 1, "wght" 400, "GRAD" 0, "opsz" 48;
     }
   }
-  
+
   &.btn4xc:hover {
     i.ms {
       font-variation-settings: "FILL" 1, "wght" 400, "GRAD" 0, "opsz" 48;
@@ -65,13 +65,12 @@ i.ms {
   }
 }
 
-
 .cdk-drag-placeholder {
   opacity: 0;
 }
 
 .cdk-drag-preview {
-  @apply shadow-md bg-white rounded-xl
+  @apply shadow-md bg-white rounded-xl;
 }
 
 .cdk-drag-animating {
@@ -89,6 +88,7 @@ i.ms {
 
 ::-webkit-scrollbar {
   width: 4px;
+  height: 4px;
 }
 
 ::-webkit-scrollbar-thumb {

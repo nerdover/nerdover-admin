@@ -1,1 +1,19 @@
-<p>codeblock-tool works!</p>
+<DraggableTool>
+  <div class="grow space-y-2">
+    <div class="flex justify-between items-center">
+      <input type="text" class="px-4 py-2 rounded-xl" />
+      <select
+        [ngModel]="selectedLanguage"
+        (ngModelChange)="changeLanguage($event)"
+        class="px-4 py-2 rounded-xl"
+      >
+        <option value="html">HTML</option>
+        <option value="css">CSS</option>
+        <option value="javascript">Javascript</option>
+      </select>
+    </div>
+    <div class="p-2 rounded bg-[#fffffe] border grow relative">
+      <div class="h-[400px]" #code></div>
+    </div>
+  </div>
+</DraggableTool>

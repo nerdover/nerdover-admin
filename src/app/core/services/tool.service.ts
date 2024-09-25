@@ -60,8 +60,8 @@ export class ToolService {
       case 'image':
         return ImageToolComponent;
 
-      // case 'codeblock':
-      //   return CodeblockToolComponent;
+      case 'codeblock':
+        return CodeblockToolComponent;
 
       default:
         return null;
@@ -69,6 +69,6 @@ export class ToolService {
   }
 
   genGUID() {
-    return btoa(uuid().replace(/-/g, '').substring(0,8)).slice(0,-1);
+    return btoa(uuid().replace(/-/g, '').substring(0, 8)).slice(0, -1);
   }
 }
