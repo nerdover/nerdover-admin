@@ -4,7 +4,9 @@ class CodeblockData implements Data {
     text: string = ''
 }
 
-class CodeblockConfig implements Config {}
+class CodeblockConfig implements Config {
+    lineNumbers: boolean = true;
+}
 
 type CodeblockTool = ITool<CodeblockData, CodeblockConfig>;
 

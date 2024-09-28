@@ -1,7 +1,33 @@
-<div class="flex p-4 gap-2 cdk-item" cdkDrag>
-  <ToolMenu>
+<div
+  @fade
+  class="flex gap-2 cdk-item"
+  cdkDrag
+  [cdkDragDisabled]="es.globalReadonly()"
+  [ngClass]="{ 'p-2': !es.globalReadonly() }"
+>
+  @if (es.globalDraggable() && !es.globalReadonly()) {
+  <div class="self-center" @widthSlide>
     <DragButton />
-    <ng-content select="menu"></ng-content>
-  </ToolMenu>
-  <ng-content></ng-content>
+  </div>
+  }
+  <div class="grow space-y-1">
+    @if (!es.globalReadonly()) {
+    <!-- Menu Zone -->
+    <div class="flex justify-between items-center gap-2">
+      <div class="flex gap-2 items-center">
+        <ng-content select="menu-start"></ng-content>
+      </div>
+      <div class="flex gap-2 items-center">
+        <ng-content select="menu-end"></ng-content>
+      </div>
+    </div>
+    }
+    <!-- Content Zone -->
+    <ng-content select="content"></ng-content>
+    @if (!es.globalReadonly()) {
+    <span class="text-xs text-stone-200">
+      <ng-content select="block-id"></ng-content>
+    </span>
+    }
+  </div>
 </div>

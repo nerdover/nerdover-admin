@@ -1,45 +1,28 @@
-import { Component, ElementRef, viewChild } from '@angular/core';
-import { CodeblockConfig, CodeblockData, CodeblockTool } from '../../../core/models/codeblock-tool';
-import loader from '@monaco-editor/loader';
-import * as monaco from 'monaco-editor';
-import { Switch } from '../../utils/switch';
+import { Component, inject } from '@angular/core';
 import { DraggableToolComponent } from '../../components/draggable-tool/draggable-tool.component';
+import { LanguagePipe, MarkdownComponent } from 'ngx-markdown';
+import { Switch } from '../../utils/switch';
 import { FormsModule } from '@angular/forms';
+import { EditorService } from '../../../core/services/editor.service';
+import { Codeblock } from '../../../core/tools/codeblock/codeblock';
 
 @Component({
   selector: 'app-codeblock-tool',
   standalone: true,
-  imports: [DraggableToolComponent, FormsModule],
+  imports: [
+    DraggableToolComponent,
+    MarkdownComponent,
+    FormsModule,
+    LanguagePipe,
+  ],
   templateUrl: './codeblock-tool.component.html',
-  styleUrl: './codeblock-tool.component.scss'
+  styleUrl: './codeblock-tool.component.scss',
 })
-export class CodeblockToolComponent implements CodeblockTool {
-  id!: string;
-  data: CodeblockData = {
-    text: ``,
-  };
-  config!: CodeblockConfig;
-
-  codeElRef = viewChild<ElementRef<HTMLDivElement>>('code');
-  monacoEditor!: monaco.editor.IStandaloneCodeEditor;
-  selectedLanguage = 'html';
-
+export class CodeblockToolComponent extends Codeblock {
+  readonly es = inject(EditorService);
   editorPanel = new Switch(true);
 
-  ngAfterViewInit(): void {
-    loader.init().then((monaco) => {
-      this.monacoEditor = monaco.editor.create(this.codeElRef()!.nativeElement, {
-        value: '// some comment',
-        language: this.selectedLanguage,
-        lineHeight: 20,
-        theme: 'vs',
-        minimap: {enabled: false},
-      });
-    });
-  }
+  languages = ['javascript', 'typescript', 'css', 'html'];
 
-  changeLanguage(l: string) {
-    const a = this.monacoEditor.getModel();
-    monaco.editor.setModelLanguage(a!, l)
-  }
+  lang = 'javascript';
 }

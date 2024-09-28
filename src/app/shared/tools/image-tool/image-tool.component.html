@@ -1,24 +1,19 @@
 <DraggableTool>
-  <ng-container ngProjectAs="menu">
-    <ToggleIconButton
-      ngProjectAs="menu"
-      (click)="tunePanel.toggle()"
-      [of]="!tunePanel.isOpened"
-      trueIcon="edit"
-      falseIcon="edit_off"
-    />
-  </ng-container>
-  <div class="space-y-1 grow">
-    <div
-      class="p-2 bg-stone-50 rounded-lg min-h-48 flex justify-center items-center"
-    >
-      <button
-        class="px-4 py-2 rounded flex items-center gap-2 bg-stone-200 font-semibold"
+  <ng-container ngProjectAs="menu-start"></ng-container>
+  <ng-container ngProjectAs="menu-end"></ng-container>
+  <ng-container ngProjectAs="content">
+    <div class="space-y-1 grow">
+      <div
+        class="p-2 bg-stone-50 rounded-lg min-h-48 flex justify-center items-center"
       >
-        <i class="ms">image</i>
-        Add Image
-      </button>
+        <button
+          class="px-4 py-2 rounded flex items-center gap-2 bg-stone-200 font-semibold"
+        >
+          <i class="ms">image</i>
+          Add Image
+        </button>
+      </div>
     </div>
-    <span class="text-xs text-stone-200">{{ id }}</span>
-  </div>
+  </ng-container>
+  <ng-container ngProjectAs="block-id">{{ id }}</ng-container>
 </DraggableTool>

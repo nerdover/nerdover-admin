@@ -1,14 +1,11 @@
-import { Component } from '@angular/core';
-import {
-  ParagraphConfig,
-  ParagraphData,
-  ParagraphTool,
-} from '../../../core/models/paragraph-tool';
+import { Component, inject } from '@angular/core';
 import { Switch } from '../../utils/switch';
 import { DraggableToolComponent } from '../../components/draggable-tool/draggable-tool.component';
 import { FormsModule } from '@angular/forms';
-import { ToggleIconButtonComponent } from '../../components/toggle-icon-button/toggle-icon-button.component';
 import { MarkdownComponent } from 'ngx-markdown';
+import { EditorService } from '../../../core/services/editor.service';
+import { Paragraph } from '../../../core/tools/paragraph/paragraph';
+import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'ParagraphTool',
@@ -16,22 +13,13 @@ import { MarkdownComponent } from 'ngx-markdown';
   imports: [
     DraggableToolComponent,
     FormsModule,
-    ToggleIconButtonComponent,
     MarkdownComponent,
+    NgClass
   ],
   templateUrl: './paragraph-tool.component.html',
   styleUrl: './paragraph-tool.component.scss',
 })
-export class ParagraphToolComponent implements ParagraphTool {
-  id!: string;
-
-  data: ParagraphData = {
-    text: '',
-  };
-
-  config: ParagraphConfig = {
-    katex: true,
-  };
-
+export class ParagraphToolComponent extends Paragraph {
+  readonly es = inject(EditorService);
   editorPanel = new Switch(true);
 }

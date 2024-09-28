@@ -1,23 +1,85 @@
-<div class="flex justify-between gap-4 p-4 h-dvh relative">
-  <div class="min-h-full p-1 grow bg-white rounded-xl shadow relative">
-    <div class="h-full overflow-auto">
-      <router-outlet></router-outlet>
+<div class="edit-layout" [ngClass]="{ 'side-open': editSidePanel.isOpened }">
+  <div class="edit-main min-h-dvh bg-white relative">
+    <router-outlet></router-outlet>
+  </div>
+  @if (editSidePanel.isOpened) {
+  <div class="edit-side bg-white h-dvh border-s sticky top-0">
+    <div class="h-14 flex items-center ps-4 text-lg font-semibold">
+      แผงจัดการ
+    </div>
+    <hr />
+    <div class="p-4 space-y-4">
+      <div class="flex items-center gap-2">
+        <button
+          (click)="read()"
+          class="p-1 rounded-lg flex items-center"
+          [ngClass]="
+            es.globalReadonly()
+              ? 'bg-green-50 text-green-500'
+              : 'bg-yellow-50 text-yellow-500'
+          "
+        >
+          <i class="ms">{{ es.globalReadonly() ? "preview" : "edit" }}</i>
+        </button>
+        <button
+          (click)="drag()"
+          class="p-1 rounded-lg flex items-center"
+          [ngClass]="
+            es.globalDraggable()
+              ? 'bg-blue-50 text-blue-500'
+              : 'hover:bg-stone-100'
+          "
+        >
+          <i class="ms">drag_indicator</i>
+        </button>
+        <button
+          (click)="getdt()"
+          class="p-1 rounded-lg hover:bg-stone-100 flex items-center"
+        >
+          <i class="ms">save</i>
+        </button>
+      </div>
+
+      <hr />
+
+      <div class="flex flex-col text-sm space-y-2">
+        <button
+          (click)="orderPanel.toggle()"
+          class="flex justify-between items-center gap-2"
+        >
+          Components
+          <i class="ms" [ngClass]="{ 'rotate-90': orderPanel.isOpened }"
+            >chevron_right</i
+          >
+        </button>
+        @if (orderPanel.isOpened) {
+        <ul class="text-xs">
+          @for (block of es.blocks(); track $index) {
+          <li
+            class="flex gap-1 justify-between items-center px-2 py-1 hover:bg-stone-50 rounded-lg"
+          >
+            <span> {{ block.instance.id }} </span>
+            <button
+              (click)="remove($index)"
+              class="p-1 rounded-md flex items-center hover:bg-red-50 hover:text-red-700"
+            >
+              <i class="ms small">delete</i>
+            </button>
+          </li>
+          }
+        </ul>
+        }
+      </div>
+
+      {{ json }}
     </div>
   </div>
-  <div class="bg-white h-full w-64 rounded-xl shadow p-4">
-    <ul class="text-xs">
-      @for (block of es.blocks(); track $index) {
-      <li
-        class="flex gap-1 justify-between items-center px-2 py-1 hover:bg-stone-50 rounded-lg"
-      >
-        <span> {{ $index }}-{{ block.instance.id }} </span>
-        <button (click)="remove($index)"
-          class="p-1 rounded-md flex items-center hover:bg-red-50 hover:text-red-700"
-        >
-          <i class="ms small">delete</i>
-        </button>
-      </li>
-      }
-    </ul>
-  </div>
+  }
 </div>
+
+<button
+  (click)="editSidePanel.toggle()"
+  class="fixed top-2 right-2 bg-stone-100 flex items-center p-2 rounded-lg z-10"
+>
+  <i class="ms">menu</i>
+</button>

@@ -1,0 +1,8 @@
+.edit-layout {
+    display: grid;
+    grid-template-columns: auto 0px;
+
+    &.side-open {
+        grid-template-columns: auto 256px;
+    }
+}

@@ -5,16 +5,22 @@ export const fade = trigger('fade', [
     style({
       opacity: 0,
     }),
-    animate(100, style({
-        opacity: 1
-    })),
+    animate(
+      100,
+      style({
+        opacity: 1,
+      })
+    ),
   ]),
   transition(':leave', [
     style({
       opacity: 1,
     }),
-    animate(100, style({
-        opacity: 0
-    })),
+    animate(
+      100,
+      style({
+        opacity: 0,
+      })
+    ),
   ]),
 ]);
