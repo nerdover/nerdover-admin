@@ -15,6 +15,7 @@ import { Data } from '../tools/base/tool.data';
 import { Config } from '../tools/base/tool.config';
 import { v4 as uuid } from 'uuid';
 import { Tools } from '../tools/tool-list';
+import { BehaviorSubject } from 'rxjs';
 
 type ToolComponent = ComponentRef<IToolType>;
 type ToolOptions = {
@@ -33,6 +34,9 @@ export class EditorService {
   currentView = signal<ViewContainerRef | undefined>(undefined);
   blocks = computed(() => this._blocks());
 
+  private dataSubject = new BehaviorSubject<string | undefined>(undefined);
+  data$ = this.dataSubject.asObservable();
+
   tools = Tools;
 
   create(toolType: ToolType, toolOptions: ToolOptions) {
@@ -44,8 +48,6 @@ export class EditorService {
   }
 
   delete(index: number) {
-    console.log(index);
-
     const removedBlock = this.removeBlock(index);
 
     if (removedBlock) {
@@ -59,7 +61,6 @@ export class EditorService {
     }
 
     console.log(fromIndex, toIndex);
-    
 
     let currBlocks = this._blocks();
     this.currentView()!.move(this._blocks()[fromIndex].hostView, toIndex);
@@ -67,7 +68,6 @@ export class EditorService {
     const movedComponent = currBlocks.splice(fromIndex, 1)[0];
     currBlocks.splice(toIndex, 0, movedComponent);
     this._blocks.set(currBlocks);
-
   }
 
   toggleReadOnly() {
@@ -76,6 +76,25 @@ export class EditorService {
 
   toggleDraggable() {
     this.globalDraggable.set(!this.globalDraggable());
+  }
+
+  setSaveData() {
+    let json = '[]';
+    if (this.blocks() === undefined || this.blocks === null) {
+      json = '[]';
+    } else {
+      json = JSON.stringify(
+        this.blocks().map((b) => ({
+          id: b.instance.id,
+          type: b.instance.type,
+          data: b.instance.data,
+          config: b.instance.config,
+        }))
+      );
+      console.log(json);
+      
+    }
+    this.dataSubject.next(json);
   }
 
   clearBlocks() {

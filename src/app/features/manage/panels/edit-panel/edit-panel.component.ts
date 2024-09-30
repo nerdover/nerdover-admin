@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { LessonType } from '../../../../core/types/lesson-type';
 import { OverlayComponent } from '../../../../shared/components/overlay/overlay.component';
 import { FormsModule } from '@angular/forms';
-import { Identifiable } from '../../../../core/models/lesson';
+import { IdentifiableWithTrace } from '../../../../core/models/lesson';
 
 @Component({
   selector: 'EditPanel',
@@ -13,10 +13,10 @@ import { Identifiable } from '../../../../core/models/lesson';
 })
 export class EditPanelComponent implements OnInit {
   @Input({ required: true }) editType!: LessonType;
-  @Input() category?: Identifiable;
-  @Input() lesson?: Identifiable;
-  @Input() series?: Identifiable;
-  @Input() seriesLesson?: Identifiable;
+  @Input() category?: IdentifiableWithTrace;
+  @Input() lesson?: IdentifiableWithTrace;
+  @Input() series?: IdentifiableWithTrace;
+  @Input() seriesLesson?: IdentifiableWithTrace;
 
   @Output() closed = new EventEmitter();
 

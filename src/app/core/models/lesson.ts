@@ -1,4 +1,4 @@
-export interface Identifiable {
+interface Identifiable {
   id: string;
   title: string;
 }
@@ -8,22 +8,24 @@ interface Traceable {
   updatedAt?: Date;
 }
 
-export interface Category extends Identifiable, Traceable {
+export interface IdentifiableWithTrace extends Identifiable, Traceable { }
+
+export interface Category extends IdentifiableWithTrace {
   lessons?: Lesson[];
   series?: Series[];
 }
 
-export interface Lesson extends Identifiable, Traceable {
+export interface Lesson extends IdentifiableWithTrace {
   content: string;
   categoryId: string;
 }
 
-export interface Series extends Identifiable, Traceable {
+export interface Series extends IdentifiableWithTrace {
   categoryId: string;
   contents: SeriesLesson[];
 }
 
-export interface SeriesLesson extends Identifiable, Traceable {
+export interface SeriesLesson extends IdentifiableWithTrace {
   content: string;
   categoryId: string;
   seriesId: string;

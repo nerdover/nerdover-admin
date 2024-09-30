@@ -1,1 +1,3 @@
-<Editor />
+@if (lesson) {
+<Editor [data]="lesson.content" (save)="update($event)" />
+}

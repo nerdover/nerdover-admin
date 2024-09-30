@@ -1,14 +1,11 @@
-import { Component, computed, input, signal } from '@angular/core';
+import { Component, computed, inject, input, signal } from '@angular/core';
 import { FileButtonComponent } from '../../components/file-button/file-button.component';
-import {
-  getAllCategoryIdentity,
-  getAllSeriesIdentity,
-  getAllSeriesLessonIdentity,
-} from '../../../../core/mock/mock';
 import { Switch } from '../../../../shared/utils/switch';
 import { AddSeriesLessonPanelComponent } from '../../panels/add-series-lesson-panel/add-series-lesson-panel.component';
 import { fade } from '../../../../shared/animations/fade';
 import { ManageGroupComponent } from '../../components/manage-group/manage-group.component';
+import { ContentClientService } from '../../../../core/services/content-client.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-series-page',
@@ -17,26 +14,30 @@ import { ManageGroupComponent } from '../../components/manage-group/manage-group
     FileButtonComponent,
     AddSeriesLessonPanelComponent,
     ManageGroupComponent,
+    DatePipe
   ],
   templateUrl: './series-page.component.html',
   styleUrl: './series-page.component.scss',
   animations: [fade],
 })
 export class SeriesPageComponent {
+  private readonly contentClientService = inject(ContentClientService);
   categoryId = input('');
   seriesId = input('');
 
   currentCategory = computed(() =>
-    getAllCategoryIdentity().find((c) => c.id === this.categoryId())
+    this.contentClientService.getCategory(this.categoryId())()
   );
 
   currentSeries = computed(() =>
-    getAllSeriesIdentity(this.categoryId())?.find(
-      (s) => s.id === this.seriesId()
-    )
+    this.contentClientService.getSeries(this.categoryId(), this.seriesId())()
   );
-  data = computed(() =>
-    getAllSeriesLessonIdentity(this.categoryId(), this.seriesId())
+
+  seriesLessons = computed(() =>
+    this.contentClientService.seriesLessonIn(
+      this.categoryId(),
+      this.seriesId()
+    )()
   );
 
   addSeriesLessonPanel = new Switch();

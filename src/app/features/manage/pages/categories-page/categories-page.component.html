@@ -10,15 +10,15 @@
 
 <hr class="my-2" />
 
-@for (c of data; track $index) {
-<FileButton [to]="[c.id]" [label]="c.title">
+@for (category of categories(); track $index) {
+<FileButton [to]="[category.id]" [label]="category.title">
   <p class="text-xs text-stone-400 flex items-center gap-2">
-    <i class="ms">more_time</i>{{ "12-12-2001" }}
+    <i class="ms">more_time</i>{{ category.createdAt | date }}
   </p>
   <p class="text-xs text-stone-400 flex items-center gap-2">
-    <i class="ms">update</i> {{ "12-12-2001" }}
+    <i class="ms">update</i> {{ category.updatedAt | date }}
   </p>
-  <ManageGroup manageType="category" [category]="c" />
+  <ManageGroup manageType="category" [category]="category" />
 </FileButton>
 } @if (addCategoryPanel.isOpened) {
 <AddCategoryPanel @fade (closed)="addCategoryPanel.close()" />

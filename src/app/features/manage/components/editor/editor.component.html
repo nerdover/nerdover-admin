@@ -1,8 +1,8 @@
-@if (!es.globalReadonly()) {
+@if (!editorService.globalReadonly()) {
 <div
   class="flex items-center gap-2 p-2 bg-stone-50/50 backdrop-blur sticky top-0 shadow-sm z-[10]"
 >
-  @for (tool of es.tools; track $index) {
+  @for (tool of editorService.tools; track $index) {
   <button
     (click)="add(tool.type)"
     class="p-2 rounded-lg hover:bg-stone-200 flex items-center"
@@ -17,7 +17,7 @@
   cdkDropList
   (cdkDropListDropped)="drop($event)"
   class="cdk-list"
-  [ngClass]="{ 'p-4 max-w-screen-sm mx-auto': es.globalReadonly() }"
+  [ngClass]="{ 'p-4 max-w-screen-sm mx-auto': editorService.globalReadonly() }"
 >
   <ng-container #container></ng-container>
 </div>

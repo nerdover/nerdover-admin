@@ -4,7 +4,7 @@ import { LessonType } from '../../../../core/types/lesson-type';
 import { DeletePanelComponent } from '../../panels/delete-panel/delete-panel.component';
 import { fade } from '../../../../shared/animations/fade';
 import { EditPanelComponent } from '../../panels/edit-panel/edit-panel.component';
-import { Identifiable } from '../../../../core/models/lesson';
+import { IdentifiableWithTrace } from '../../../../core/models/lesson';
 
 @Component({
   selector: 'ManageGroup',
@@ -17,10 +17,10 @@ import { Identifiable } from '../../../../core/models/lesson';
 export class ManageGroupComponent {
   @Input({ required: true }) manageType!: LessonType;
 
-  @Input() category?: Identifiable;
-  @Input() lesson?: Identifiable;
-  @Input() series?: Identifiable;
-  @Input() seriesLesson?: Identifiable;
+  @Input() category?: IdentifiableWithTrace;
+  @Input() lesson?: IdentifiableWithTrace;
+  @Input() series?: IdentifiableWithTrace;
+  @Input() seriesLesson?: IdentifiableWithTrace;
 
   editPanel = new Switch();
   deletePanel = new Switch();

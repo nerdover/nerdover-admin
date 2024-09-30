@@ -11,21 +11,23 @@
     <div class="p-4 space-y-4">
       <div class="flex items-center gap-2">
         <button
-          (click)="read()"
+          (click)="editorService.toggleReadOnly()"
           class="p-1 rounded-lg flex items-center"
           [ngClass]="
-            es.globalReadonly()
+            editorService.globalReadonly()
               ? 'bg-green-50 text-green-500'
               : 'bg-yellow-50 text-yellow-500'
           "
         >
-          <i class="ms">{{ es.globalReadonly() ? "preview" : "edit" }}</i>
+          <i class="ms">{{
+            editorService.globalReadonly() ? "preview" : "edit"
+          }}</i>
         </button>
         <button
-          (click)="drag()"
+          (click)="editorService.toggleDraggable()"
           class="p-1 rounded-lg flex items-center"
           [ngClass]="
-            es.globalDraggable()
+            editorService.globalDraggable()
               ? 'bg-blue-50 text-blue-500'
               : 'hover:bg-stone-100'
           "
@@ -33,7 +35,7 @@
           <i class="ms">drag_indicator</i>
         </button>
         <button
-          (click)="getdt()"
+          (click)="editorService.setSaveData()"
           class="p-1 rounded-lg hover:bg-stone-100 flex items-center"
         >
           <i class="ms">save</i>
@@ -54,7 +56,7 @@
         </button>
         @if (orderPanel.isOpened) {
         <ul class="text-xs">
-          @for (block of es.blocks(); track $index) {
+          @for (block of editorService.blocks(); track $index) {
           <li
             class="flex gap-1 justify-between items-center px-2 py-1 hover:bg-stone-50 rounded-lg"
           >
@@ -70,8 +72,6 @@
         </ul>
         }
       </div>
-
-      {{ json }}
     </div>
   </div>
   }

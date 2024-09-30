@@ -12,41 +12,17 @@ import { NgClass } from '@angular/common';
   styleUrl: './edit-layout.component.scss',
 })
 export class EditLayoutComponent {
-  readonly es = inject(EditorService);
-  // private readonly ds
-
-  json = '';
+  readonly editorService = inject(EditorService);
 
   editSidePanel = new Switch();
 
   orderPanel = new Switch();
 
   remove(index: number) {
-    if (index < 0 || index >= this.es.blocks().length) {
+    if (index < 0 || index >= this.editorService.blocks().length) {
       return;
     }
 
-    this.es.delete(index);
+    this.editorService.delete(index);
   }
-
-  getdt() {
-    this.json = JSON.stringify(
-      this.es.blocks().map((b) => ({
-        id: b.instance.id,
-        type: b.instance.type,
-        data: b.instance.data,
-        config: b.instance.config,
-      }))
-    );
-  }
-
-  read() {
-    this.es.toggleReadOnly();
-  }
-
-  drag() {
-    this.es.toggleDraggable();
-  }
-
-
 }

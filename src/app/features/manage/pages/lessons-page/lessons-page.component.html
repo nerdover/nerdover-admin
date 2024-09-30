@@ -1,5 +1,7 @@
 <div class="flex items-center justify-between gap-4 text-sm">
-  <p class="px-4 font-semibold">{{ currentCategory()?.title }}</p>
+  <p class="px-4 font-semibold">
+    {{ currentCategory()?.title }}
+  </p>
   <div class="flex items-center gap-4">
     <button
       (click)="addLessonPanel.open()"
@@ -20,36 +22,36 @@
 
 <FileButton [to]="['..']" label=".." [entireLinkable]="true" />
 
-@if (data(); as d) { @for (l of data(); track $index) {
+@if (lessons(); as lessons) { @for (lesson of lessons; track $index) {
 <FileButton
-  [to]="['/', 'edit', 'lesson', categoryId(), l.id]"
-  [label]="l.title"
+  [to]="['/', 'edit', 'lesson', categoryId(), lesson.id]"
+  [label]="lesson.title"
   icon="description"
 >
   <p class="text-xs text-stone-400 flex items-center gap-2">
-    <i class="ms">more_time</i>{{ "12-12-2001" }}
+    <i class="ms">more_time</i>{{ lesson.createdAt | date }}
   </p>
   <p class="text-xs text-stone-400 flex items-center gap-2">
-    <i class="ms">update</i> {{ "12-12-2001" }}
+    <i class="ms">update</i> {{ lesson.updatedAt | date }}
   </p>
   <ManageGroup
     manageType="lesson"
     [category]="currentCategory()"
-    [lesson]="l"
+    [lesson]="lesson"
   />
 </FileButton>
-} } @if (data1()) { @for (s of data1(); track $index) {
-<FileButton [to]="[s.id]" [label]="s.title" icon="note_stack">
+} } @if (series(); as seriesList) { @for (series of seriesList; track $index) {
+<FileButton [to]="[series.id]" [label]="series.title" icon="note_stack">
   <p class="text-xs text-stone-400 flex items-center gap-2">
-    <i class="ms">more_time</i>{{ "12-12-2001" }}
+    <i class="ms">more_time</i>{{ series.createdAt | date }}
   </p>
   <p class="text-xs text-stone-400 flex items-center gap-2">
-    <i class="ms">update</i> {{ "12-12-2001" }}
+    <i class="ms">update</i> {{ series.createdAt | date }}
   </p>
   <ManageGroup
     manageType="series"
     [category]="currentCategory()"
-    [series]="s"
+    [series]="series"
   />
 </FileButton>
 } } @if (addLessonPanel.isOpened) {
